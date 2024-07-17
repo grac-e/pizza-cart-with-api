@@ -177,11 +177,17 @@ body {
     margin: 1em;
 }
 
-.table-container {
+/* .table-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; 
     margin: 0 auto;
-}
+} */
+
+/* .table td.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
 
 @media (max-width: 768px) {
     .table {
@@ -220,5 +226,15 @@ body {
     
     .table th, .table td {
         padding: 4px; 
+    }
+}
+
+@media (max-width: 300px) {
+    .table {
+        font-size: 0.35em; 
+    }
+    
+    .table th, .table td {
+        padding: 3px; 
     }
 }
