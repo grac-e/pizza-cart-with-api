@@ -153,7 +153,7 @@ document.addEventListener("alpine:init", () => {
                                 this.cartPizzas = [];
                                 this.cartTotal = 0.00
                                 this.cartId = ''
-                                this.paymentAmount = 0;
+                                this.paymentAmount = '';
                                 localStorage['cartId'] = '';
                                 this.createCart();
                             }, 3000);
