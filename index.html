@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
 
 </head>
 
@@ -43,7 +45,7 @@
             </div>
         </div>
         <div x-show="cartTotal > 0">
-            <h2 style="text-align: center;">Your cart</h2>
+            <h2 style="text-align: center;">Your cart <i class="bi bi-cart4"></i></h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -215,14 +217,14 @@
     </div> -->
 
     <div x-show="username && cartId">
-        <h2 style="text-align: center;">Pizzas</h2>
+        <h2 style="text-align: center;">Pizzas <i class="fas fa-pizza-slice"></i></h2>
 
         <template x-for="pizza in pizzas">
-            <div class="apizza">
+            <div class="apizza" style="text-align: center;">
                 <!-- <span x-text="pizza.id"></span> -->
                 <strong><span x-text="pizza.flavour"></span></strong>
                 <!-- <span x-text="pizza.type"></span> -->
-                <span x-text="pizza.size"></span>
+                <h4 x-text="pizza.size"></h4>
                 R<span x-text="pizza.price"></span>
                 <button @click="addPizzaToCart(pizza.id)" class="color-button">Add to cart</button>
             </div>
