@@ -8,7 +8,7 @@ document.addEventListener("alpine:init", () => {
             cartId: '',
             cartPizzas: [],
             cartTotal: 0.00,
-            paymentAmount: 0,
+            paymentAmount: '',
             message: '',
             change: 0,
             login() {
