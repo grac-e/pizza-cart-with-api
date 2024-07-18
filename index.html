@@ -38,86 +38,55 @@
                 Username: <input type="text" x-model="username" class="pay">
                 <button @click="login" class="color-button" x-show="!cartId">Log in</button>
                 <button @click="logout" class="color-button" x-show="username && cartId">Log out</button>
-                <!-- <a href="">Logout</a> -->
             </div>
             <div x-show="cartId">
                 Cart code: <span x-text="cartId"></span>
             </div>
         </div>
-        <div x-show="cartTotal > 0">
-            <h2 style="text-align: center;">Your cart <i class="bi bi-cart4"></i></h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Flavour</th>
-                        <th>Size</th>
-                        <th>Price</th>
-                        <th>Qty</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
+        <div class="cart-container">
+            <div x-show="cartTotal > 0">
+                <h2 style="text-align: center;">Your cart <i class="bi bi-cart4"></i></h2>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Flavour</th>
+                                <th>Size</th>
+                                <th>Price</th>
+                                <th>Qty</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
 
-                <template x-for="pizza in cartPizzas">
-                    <tr>
-                        <td x-text="pizza.flavour"></td>
-                        <td x-text="pizza.size"></td>
-                        <td x-text="pizza.price"></td>
-                        <td>
-                            <button @click="addPizzaToCart(pizza.id)" class="color-button">+</button>
-                            <span x-text="pizza.qty">0</span>
-                            <button @click="removePizzaFromCart(pizza.id)" class="color-button">-</button>
-                        </td>
-                        <td x-text="pizza.total"></td>
-                    </tr>
-                </template>
+                        <template x-for="pizza in cartPizzas">
+                            <tr>
+                                <td x-text="pizza.flavour"></td>
+                                <td x-text="pizza.size"></td>
+                                <td x-text="pizza.price"></td>
+                                <td>
+                                    <button @click="addPizzaToCart(pizza.id)" class="color-button">+</button>
+                                    <span x-text="pizza.qty">0</span>
+                                    <button @click="removePizzaFromCart(pizza.id)" class="color-button">-</button>
+                                </td>
+                                <td x-text="pizza.total"></td>
+                            </tr>
+                        </template>
 
-                <!-- <tbody>
-             <tr>
-                <td>Flavour 2</td>
-                <td>small</td>
-                <td>57.88</td>
-                <td>
-                    <button class="color-button">+</button>
-                    x3
-                    <button class="color-button">-</button>
-                </td>
-                <td>300</td>
-             </tr>
-             <tr>
-                <td>Flavour 3</td>
-                <td>small</td>
-                <td>57.88</td>
-                <td>
-                    <button class="color-button">+</button>
-                    x3
-                    <button class="color-button">-</button>
-                </td>
-                <td>300</td>
-             </tr>
-             <tr>
-                <td>Flavour 1</td>
-                <td>small</td>
-                <td>57.88</td>
-                <td>
-                    <button class="color-button">+</button>
-                    x3
-                    <button class="color-button">-</button>
-                </td>
-                <td>300</td>
-             </tr>
-             </tbody> -->
-                <tfoot>
-                    <tr class="total-row">
-                        <td colspan="4">Total</td>
-                        <td class="flex-container">R <span x-text="cartTotal"></span></td>
-                    </tr>
-                    <tr class="total-row" style="text-align: center;">
-                        <td colspan="3">Pay now</td>
-                        <td><input x-model="paymentAmount" type="number" class="pay"></td>
-                        <td><button @click="payForCart()" class="color-button">Pay</button></td>
-                    </tr>
-                </tfoot>
-            </table>
+                        <td>300</td>
+                        <tfoot>
+                            <tr class="total-row">
+                                <td colspan="4">Total</td>
+                                <td class="flex-container">R <span x-text="cartTotal"></span></td>
+                            </tr>
+                            <tr class="total-row" style="text-align: center;">
+                                <td colspan="3">Pay now</td>
+                                <td><input x-model="paymentAmount" type="number" class="pay"></td>
+                                <td><button @click="payForCart()" class="color-button">Pay</button></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -216,7 +185,7 @@
         </div>
     </div> -->
 
-    <div x-show="username && cartId">
+    <div x-show="username && cartId" class="something">
         <h2 style="text-align: center;">Pizzas <i class="fas fa-pizza-slice"></i></h2>
 
         <template x-for="pizza in pizzas">

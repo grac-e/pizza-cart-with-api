@@ -177,13 +177,13 @@ body {
     margin: 1em;
 }
 
-/* .table-container {
+.table-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; 
     margin: 0 auto;
-} */
-
-/* .table td.flex-container {
+}
+/* 
+.table td.flex-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -231,10 +231,33 @@ body {
 
 @media (max-width: 300px) {
     .table {
-        font-size: 0.35em; 
+        font-size: 0.7em; 
     }
     
     .table th, .table td {
         padding: 3px; 
     }
 }
+
+@media (max-width: 200px) {
+    .table {
+        font-size: 0.3em; 
+    }
+    
+    .table th, .table td {
+        padding: 2px; 
+    }
+}
+
+/* @media only screen and (max-width: 600px) {
+    .table {
+        width: 100%
+    }
+  } */
+
+/* .something {
+    display: grid;
+    gap: 10px;
+    padding: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+} */
