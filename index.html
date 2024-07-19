@@ -192,9 +192,11 @@
             <div class="apizza" style="text-align: center;">
                 <!-- <span x-text="pizza.id"></span> -->
                 <strong><span x-text="pizza.flavour"></span></strong>
+                <img src="pizza icon.png" alt="pizza" width="30">
                 <!-- <span x-text="pizza.type"></span> -->
-                <h4 x-text="pizza.size"></h4>
-                R<span x-text="pizza.price"></span>
+                <strong><span x-text="pizza.size"></span></strong>
+                <img src="pizza icon.png" alt="pizza" width="30">
+                <span>R<span x-text="pizza.price"></span>
                 <button @click="addPizzaToCart(pizza.id)" class="color-button">Add to cart</button>
             </div>
         </template>
@@ -213,6 +215,10 @@
             <div>Base Town.</div>
         </div>
 
+    </div>
+
+    <div style="text-align: center;">
+        <p> &copy; 2024· Perfect Pizza· grac-e</p>
     </div>
 
     <script src="./pizza.js"></script>
