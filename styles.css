@@ -19,36 +19,6 @@ body {
     background-color: #ff9b85;
 }
 
-.small_pizza {
-    background-color: #a7c957;
-
-    img {
-        float: left;
-        margin: 1.5em;
-        clear: left;
-    }
-}
-
-.medium_pizza {
-    background-color: #6a994e;
-
-    img {
-        float: left;
-        margin: 1em;
-        clear: left;
-    }
-}
-
-.large_pizza {
-    background-color: #4f772d;
-
-    img {
-        float: left;
-        margin: 0.5em;
-        clear: left;
-    }
-}
-
 .contact_details {
     background-color: #bc4749;
     padding-bottom: 5em;
@@ -84,6 +54,20 @@ body {
     text-align: center;
     /* justify-content: space-between; */
     gap: 10px;
+}
+
+.pizza-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pizza-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 .headings {
@@ -255,6 +239,18 @@ body {
     }
 }
 
+.error-message {
+    color: red;
+}
+
+.success-message {
+    color: green;
+}
+
+.change-message {
+    color: #4f772d;
+}
+
 /* @media only screen and (max-width: 600px) {
     .table {
         width: 100%
@@ -267,3 +263,12 @@ body {
     padding: 10px;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 } */
+
+/* .order {
+    padding: 1em;
+    border: 1px solid;
+    margin: 1em;
+    border-radius: 0.2em;
+    background-color: #ff9b85;
+} */
+

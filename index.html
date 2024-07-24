@@ -32,196 +32,179 @@
             <h4>Knead, Eat, Repeat!</h4>
         </i>
     </div>
+
     <div x-cloak>
-        <div class="thingy">
-            <div>
-                Username: <input type="text" x-model="username" class="pay">
-                <button @click="login" class="color-button" x-show="!cartId">Log in</button>
-                <button @click="logout" class="color-button" x-show="username && cartId">Log out</button>
-            </div>
-            <div x-show="cartId">
-                Cart code: <span x-text="cartId"></span>
-            </div>
-        </div>
-        <div class="cart-container">
-            <div x-show="cartTotal > 0">
-                <h2 style="text-align: center;">Your cart <i class="bi bi-cart4"></i></h2>
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Flavour</th>
-                                <th>Size</th>
-                                <th>Price</th>
-                                <th>Qty</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
+        <div>
+            <div class="thingy">
+                <div>
+                    Username: <input type="text" x-model="username" class="pay">
+                    <button @click="login" class="color-button" x-show="!cartId">Log in</button>
+                    <button @click="logout" class="color-button" x-show="username && cartId">Log out</button>
+                </div>
 
-                        <template x-for="pizza in cartPizzas">
-                            <tr>
-                                <td x-text="pizza.flavour"></td>
-                                <td x-text="pizza.size"></td>
-                                <td x-text="pizza.price"></td>
-                                <td>
-                                    <button @click="addPizzaToCart(pizza.id)" class="color-button">+</button>
-                                    <span x-text="pizza.qty">0</span>
-                                    <button @click="removePizzaFromCart(pizza.id)" class="color-button">-</button>
-                                </td>
-                                <td x-text="pizza.total"></td>
-                            </tr>
+                <div x-show="cartId">
+                    Cart code: <span x-text="cartId"></span>
+                </div>
+                <button @click="showOrderHistory = true" class="color-button" x-show="username && cartId">Order
+                    History</button>
+            </div>
+
+            <!-- stuff -->
+
+            <!-- <div x-data="pizzaCart">
+                <div x-cloak x-show="showOrderHistory"
+                    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;">
+                    <div class="order-history-popup"
+                        style="background-color: #f2e8cf; padding: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 400px; overflow-y: scroll;">
+                        <h2>Order History</h2>
+                        <template x-for="order in pizzaHistory">
+                            <div>
+                                <h3>Order ID: <span x-text="order.id"></span></h3>
+                                <p><span x-text="order.flavour"></span></p>
+                                <p><span x-text="order.size"></span></p>
+                                <p>Total: R<span x-text="order.total.toFixed(2)"></span></p>
+                            </div>
                         </template>
-
-                        <!-- <td>300</td> -->
-                        <tfoot>
-                            <tr class="total-row">
-                                <td colspan="4">Total</td>
-                                <td class="flex-container">R <span x-text="cartTotal"></span></td>
-                            </tr>
-                            <tr class="total-row" style="text-align: center;">
-                                <td colspan="3">Enter amount:</td>
-                                <td><input x-model="paymentAmount" type="number" class="pay"></td>
-                                <td><button @click="payForCart()" class="color-button">Pay</button></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                        <button @click="showOrderHistory = false" class="color-button">Close</button>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </div> -->
 
-
-    <div x-show="message" x-text="message" style="text-align: center;">Message here</div>
-    <div x-show="change" x-text="'Change: R' + change.toFixed(2)" style="text-align: center;"></div>
-    <!-- <div x-data="pizzaCar()">
-        <div class="pizzar">
-            <div class="cart">
-                <h2 class="heading">Shopping Cart<i class="fas fa-shopping-cart"></i></h2>
-                <div class="heading">
-                    <div>
-                        <div x-text="cart.small"></div>
-                        <p>Small
-                            <button @click="addPizza('small', 30.00)" class="color-button">+</button>
-                            <span x-text="cart.small"></span>
-                            <button @click="removePizza('small')" class="color-button">-</button>
-                            30.00
-                        </p>
-                    </div>
-
-                    <div>
-                        <div x-text="cart.medium"></div>
-                        <p>Medium
-                            <button @click="addPizza('medium', 55.00)" class="color-button">+</button>
-                            <span x-text="cart.medium"></span>
-                            <button @click="removePizza('medium')" class="color-button">-</button>
-                            55.00
-                        </p>
-                    </div>
-
-                    <div>
-                        <div x-text="cart.large"></div>
-                        <p>Large
-                            <button @click="addPizza('large', 85.00)" class="color-button">+</button>
-                            <span x-text="cart.large"></span>
-                            <button @click="removePizza('large')" class="color-button">-</button>
-                            90.00
-                        </p>
-                    </div>
-
-                    <div>
-                        Total cost: <span x-text="totalCost.toFixed(2)"></span>
-                    </div>
-
-                    <button @click="showPayment = true" x-show="hasPizzas" class="color-button">Checkout</button>
-
-                    <div x-show="showPayment" x-transition>
+            <div x-show="showOrderHistory" x-cloak
+                style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;">
+                <div class="order-history-popup"
+                    style="background-color: #f2e8cf; padding: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-height: 400px; overflow-y: scroll;">
+                    <h2>Order History</h2>
+                    <template x-for="order in pizzaHistory">
                         <div>
-                            <label for="payment">Payment amount:</label>
-                            <input type="number" id="payment" x-model="paymentAmount" class="pay" />
-                            <button @click="processPayment()" class="color-button">Buy</button>
+                            <h3>Order ID: <span x-text="order.id"></span></h3>
+                            <p><span x-text="order.flavour"></span></p>
+                            <p><span x-text="order.size"></span></p>
+                            <p>Total: R<span x-text="order.total.toFixed(2)"></span></p>
                         </div>
+                    </template>
+                    <button @click="showOrderHistory = false" class="color-button">Close</button>
+                </div>
+
+                <!-- stuff -->
+
+            </div>
+            <div class="cart-container">
+                <div x-show="cartTotal > 0">
+                    <h2 style="text-align: center;">Your cart <i class="bi bi-cart4"></i></h2>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Flavour</th>
+                                    <th>Size</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+
+                            <template x-for="pizza in cartPizzas">
+                                <tr>
+                                    <td x-text="pizza.flavour"></td>
+                                    <td x-text="pizza.size"></td>
+                                    <td x-text="pizza.price"></td>
+                                    <td>
+                                        <button @click="addPizzaToCart(pizza.id)" class="color-button">+</button>
+                                        <span x-text="pizza.qty">0</span>
+                                        <button @click="removePizzaFromCart(pizza.id)" class="color-button">-</button>
+                                    </td>
+                                    <td x-text="pizza.total"></td>
+                                </tr>
+                            </template>
+
+                            <!-- <td>300</td> -->
+                            <tfoot>
+                                <tr class="total-row">
+                                    <td colspan="4">Total</td>
+                                    <td class="flex-container">R <span x-text="cartTotal"></span></td>
+                                </tr>
+                                <tr class="total-row" style="text-align: center;">
+                                    <td colspan="3">Enter amount:</td>
+                                    <td><input x-model="paymentAmount" type="number" class="pay"></td>
+                                    <td><button @click="payForCart()" class="color-button">Pay</button></td>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
-
-                    <div x-show="message" x-text="message" x-transition></div>
-                    <div x-show="change" x-text="'Change: ' + change.toFixed(2)" x-transition></div>
                 </div>
             </div>
         </div>
 
 
-        <div class="pizzas">
-            <div class="pizza small_pizza">
-                <img src="https://user-images.githubusercontent.com/34037/167313920-09aeb40f-9952-439b-8e54-a04c02caa427.png"
-                    width="100">
-                <h2>Small Pizza</h2>
-                <h3>R30.00</h3>
+        <div x-show="message" x-text="message" style="text-align: center;" :class="messageType">Message here</div>
+        <div x-show="change" x-text="'Change: R' + change.toFixed(2)" style="text-align: center;"
+            class="change-message">
+        </div>
+
+        <div x-show="username && cartId" class="something">
+
+            <div class="featured-pizzas">
+                <h2 x-show="featuredPizzas.length >= 0" style="text-align: center;">Featured Pizzas <i
+                        class="bi bi-chat-heart"></i></h2>
                 <div>
-                    Small margherita pizza with 3 toppings max. 1 meat topping, 3 or less other toppings.
+                    <template x-for="pizza in featuredPizzas">
+                        <div class="apizza">
+                            <strong><span x-text="pizza.flavour"></span></strong>
+                            <img src="pizza icon.png" alt="pizza" width="30">
+                            <strong><span x-text="pizza.size"></span></strong>
+                            <img src="pizza icon.png" alt="pizza" width="30">
+                            <span>R<span x-text="pizza.price"></span>
+
+                                <button class="color-button" @click="addPizzaToCart(pizza.id)">Add to cart</button>
+                        </div>
+                    </template>
                 </div>
-                <button @click="addPizza('small', 30.00)" class="color-button">Buy</button>
             </div>
 
-            <div class="pizza medium_pizza">
-                <img src="https://user-images.githubusercontent.com/34037/167313920-09aeb40f-9952-439b-8e54-a04c02caa427.png"
-                    width="125">
-                <h2>Medium Pizza</h2>
-                <h3>R55.00</h3>
-                <div>
-                    Medium margherita pizza with 3 toppings max. 2 or less meat toppings, 3 or less other toppings.
+
+            <h2 style="text-align: center;">Menu <i class="fas fa-pizza-slice"></i></h2>
+
+            <template x-for="pizza in pizzas">
+                <div class="apizza" style="text-align: center;">
+                    <!-- <span x-text="pizza.id"></span> -->
+                    <strong><span x-text="pizza.flavour"></span></strong>
+                    <img src="pizza icon.png" alt="pizza" width="30">
+                    <!-- <span x-text="pizza.type"></span> -->
+                    <strong><span x-text="pizza.size"></span></strong>
+                    <img src="pizza icon.png" alt="pizza" width="30">
+                    <span>R<span x-text="pizza.price"></span>
+                        
+                    <!-- <div class="pizza-buttons"> -->
+                            <button @click="addPizzaToCart(pizza.id)" class="color-button">Add to cart</button>
+                            <button @click="manageFeaturedPizzas(pizza.id)" class="color-button">Feature pizza</button>
+                        </div>
                 </div>
-                <button @click="addPizza('medium', 55.00)" class="color-button">Buy</button>
-            </div>
-
-            <div class="pizza large_pizza">
-                <img src="https://user-images.githubusercontent.com/34037/167313920-09aeb40f-9952-439b-8e54-a04c02caa427.png"
-                    width="150">
-                <h2>Large Pizza</h2>
-                <h3>R90.00</h3>
-                <div>
-                    Large margherita pizza with 3 toppings max. 3 or less meat toppings, 3 or less other toppings.
-                </div>
-                <button @click="addPizza('large', 90.00)" class="color-button">Buy</button>
-            </div>
-        </div>
-    </div> -->
-
-    <div x-show="username && cartId" class="something">
-        <h2 style="text-align: center;">Pizzas <i class="fas fa-pizza-slice"></i></h2>
-
-        <template x-for="pizza in pizzas">
-            <div class="apizza" style="text-align: center;">
-                <!-- <span x-text="pizza.id"></span> -->
-                <strong><span x-text="pizza.flavour"></span></strong>
-                <img src="pizza icon.png" alt="pizza" width="30">
-                <!-- <span x-text="pizza.type"></span> -->
-                <strong><span x-text="pizza.size"></span></strong>
-                <img src="pizza icon.png" alt="pizza" width="30">
-                <span>R<span x-text="pizza.price"></span>
-                <button @click="addPizzaToCart(pizza.id)" class="color-button">Add to cart</button>
-            </div>
-        </template>
-    </div>
-
-    <div class="pizza contact_details" style="color:antiquewhite;">
-        <h2>Contact details</h2>
-        <div class="contact">
-            <div>Contact us at: (021)-541-1000</div>
-            <div>info@perfectpizza.co.za</div>
+            </template>
         </div>
 
-        <div class="address">
-            <div>Pizza Plaza,</div>
-            <div>Dough Road,</div>
-            <div>Base Town.</div>
-        </div>
+        <footer>
+            <div class="pizza contact_details" style="color:antiquewhite;">
+                <h2>Contact details</h2>
+                <div class="contact">
+                    <div>Contact us at: (021)-541-1000</div>
+                    <div>info@perfectpizza.co.za</div>
+                </div>
 
-    </div>
+                <div class="address">
+                    <div>Pizza Plaza,</div>
+                    <div>Dough Road,</div>
+                    <div>Base Town.</div>
+                </div>
 
-    <div style="text-align: center;">
-        <p> &copy; 2024· Perfect Pizza· grac-e</p>
-    </div>
+            </div>
 
-    <script src="./pizza.js"></script>
+            <div style="text-align: center;">
+                <p> &copy; 2024· Perfect Pizza· grac-e</p>
+            </div>
+        </footer>
+
+        <script src="./pizza.js"></script>
 </body>
 
 </html>

@@ -10,11 +10,22 @@ document.addEventListener("alpine:init", () => {
             cartTotal: 0.00,
             paymentAmount: '',
             message: '',
+            messageType: '',
             change: 0,
+            pizzaHistory: [],
+            cartData: [],
+            featuredPizzas: [],
+            showOrderHistory: false,
+            orderHistory: [],
+
+
+
             login() {
                 if (this.username.length > 2) {
                     localStorage['username'] = this.username;
                     this.createCart();
+                    this.showOrderHistory = false;
+                    this.loadHistory();
                 } else {
                     alert("Username is too short");
                 }
@@ -22,10 +33,14 @@ document.addEventListener("alpine:init", () => {
 
             logout() {
                 if (confirm('Do you want to logout?')) {
+                    this.saveHistory();
+                    this.featuredPizzas = [];
                     this.username = '';
                     this.cartId = '';
                     localStorage['cartId'] = '';
                     localStorage['username'] = '';
+                    localStorage.removeItem('cartId');
+                    this.showOrderHistory = false;
                 }
 
             },
@@ -78,6 +93,23 @@ document.addEventListener("alpine:init", () => {
                     })
             },
 
+            fetchFeaturedPizzas() {
+                const featuredPizzasURL = `https://pizza-api.projectcodex.net/api/pizzas/featured?username=${this.username}`;
+                axios.get(featuredPizzasURL).then((result) => {
+                    this.featuredPizzas = result.data.pizzas;
+                });
+            },
+
+            manageFeaturedPizzas(pizzaId) {
+                const featuredPizzasURL = `https://pizza-api.projectcodex.net/api/pizzas/featured`;
+                axios.post(featuredPizzasURL, {
+                    'username': this.username,
+                    'pizza_id': pizzaId
+                }).then(() => {
+                    this.fetchFeaturedPizzas();
+                });
+            },
+
             showCartData() {
                 this.getCart().then(result => {
                     this.cartPizzas = result.data.pizzas;
@@ -87,20 +119,44 @@ document.addEventListener("alpine:init", () => {
                 })
             },
 
+            fetchPizzaHistory() {
+                this.pizzaHistory = JSON.parse(localStorage.getItem('pizzaHistory') || []);
+                console.log(this.pizzaHistory);
+            },
+
+            // new
+            fetchOrderHistory() {
+                const orderHistoryURL = `https://pizza-api.projectcodex.net/api/pizza-cart/history?username=${this.username}`;
+                axios.get(orderHistoryURL)
+                    .then(result => {
+                        this.orderHistory = result.data.orders;
+                    });
+            },
+
+            // saveOrderHistory() {
+            //                     axios.get(orderHistoryURL)
+            //         .then(result => {
+            //             this.orderHistory = result.data.orders;
+            //         });
+            // },
+            // new ends
+
             init() {
 
                 const storedUsername = localStorage['username'];
                 if (storedUsername) {
                     this.username = storedUsername;
+                    this.fetchOrderHistory();
                 }
-               
 
-                    axios
-                        .get(`https://pizza-api.projectcodex.net/api/pizzas`)
-                        .then(result => {
-                            // console.log(result.data);
-                            this.pizzas = result.data.pizzas
-                        });
+
+                axios
+                    .get(`https://pizza-api.projectcodex.net/api/pizzas`)
+                    .then(result => {
+                        // console.log(result.data);
+                        this.pizzas = result.data.pizzas
+                    });
+                    // this.fetchOrderHistory();
 
                 if (!this.cartId) {
                     this
@@ -109,6 +165,9 @@ document.addEventListener("alpine:init", () => {
                             this.showCartData();
                         })
                 }
+                this.fetchPizzaHistory();
+                this.fetchFeaturedPizzas();
+                // console.log(this.addPizzafetchFeaturedPizzas());
 
             },
             addPizzaToCart(pizzaId) {
@@ -137,18 +196,34 @@ document.addEventListener("alpine:init", () => {
                     .then(result => {
                         if (result.data.status == 'failure') {
                             this.message = result.data.message;
+                            this.messageType = 'error-message';
                             setTimeout(() => this.message = '', 3000);
                         } else {
                             this.message = 'Payment received. Enjoy your pizzas!';
+                            this.messageType = 'success-message';
 
-                            if (this.paymentAmount > this.cartTotal) {
-                                this.change = this.paymentAmount - this.cartTotal;
+
+                            var localStorageData = JSON.parse(localStorage.getItem('pizzaHistory')) || [];
+                            var pizzaHistoryArr = [...this.cartPizzas, ...localStorageData]
+                            localStorage.setItem('pizzaHistory', JSON.stringify(pizzaHistoryArr))
+                            console.log(pizzaHistoryArr)
+
+
+                            // console.log("is enough", this.paymentAmount > this.cartTotal)
+                            // console.log("amount", this.paymentAmount)
+
+                            const amount = parseInt(this.paymentAmount)
+                            if (amount > this.cartTotal) {
+                                // console.log("change",this.paymentAmount - this.cartTotal)
+                                // console.log("total",this.cartTotal)
+                                this.change = (amount - this.cartTotal);
                             } else {
                                 this.change = 0;
                             }
 
                             setTimeout(() => {
                                 this.message = '';
+                                this.messageType = '';
                                 this.change = 0;
                                 this.cartPizzas = [];
                                 this.cartTotal = 0.00
