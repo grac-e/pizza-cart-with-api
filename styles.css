@@ -82,6 +82,7 @@ body {
     /* border: 1px solid; */
     margin: 1em;
     border-radius: 0.2em;
+    /* background-color: #4f772d; */
     background-image: url(pizza.png);
     background-size: cover;
     background-position: center;

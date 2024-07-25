@@ -150,8 +150,10 @@
                 <div>
                     <template x-for="pizza in featuredPizzas">
                         <div class="apizza">
+                            <img src="menu-pizza.png" alt="pizza" width="120">
                             <strong><span x-text="pizza.flavour"></span></strong>
                             <img src="pizza icon.png" alt="pizza" width="30">
+                            <!-- <img src="pizza (2).png" alt="pizza" width="40"> -->
                             <strong><span x-text="pizza.size"></span></strong>
                             <img src="pizza icon.png" alt="pizza" width="30">
                             <span>R<span x-text="pizza.price"></span>
@@ -173,7 +175,7 @@
                     <option value="meaty">Meaty</option>
                 </select>
             </div> -->
-            <!-- <div class="party">
+            <div class="party">
                 <div style="display: flex;">
                     <div style="flex: 1; text-align: left; padding: 20px;">
                         <h3>Filter By:</h3>
@@ -203,10 +205,11 @@
                         </select>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <template x-for="pizza in filteredPizzas">
                 <div class="apizza" style="text-align: center;">
+                    <!-- <img src="menu-pizza.png" alt="pizza" width="120"> -->
                     <!-- <span x-text="pizza.id"></span> -->
                     <strong><span x-text="pizza.flavour"></span></strong>
                     <img src="pizza icon.png" alt="pizza" width="30">
