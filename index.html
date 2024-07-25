@@ -162,10 +162,50 @@
                 </div>
             </div>
 
-
             <h2 style="text-align: center;">Menu <i class="fas fa-pizza-slice"></i></h2>
 
-            <template x-for="pizza in pizzas">
+            <!-- <div style="text-align: center; margin-top: 20px;">
+                <label for="pizzaType">Select Pizza Type: </label>
+                <select id="pizzaType" x-model="selectedType" @change="filterPizzasByType" class="color-button-two">
+                    <option value="">All</option>
+                    <option value="chicken">Chicken</option>
+                    <option value="veggie">Veggie</option>
+                    <option value="meaty">Meaty</option>
+                </select>
+            </div> -->
+            <!-- <div class="party">
+                <div style="display: flex;">
+                    <div style="flex: 1; text-align: left; padding: 20px;">
+                        <h3>Filter By:</h3>
+                        <input type="radio" id="filterByType" name="filterCriteria" value="type" style="cursor: pointer;"
+                            x-model="filterCriteria">
+                        <label for="filterByType">Type</label><br>
+                        <input type="radio" id="filterBySize" name="filterCriteria" value="size" style="cursor: pointer;"
+                            x-model="filterCriteria">
+                        <label for="filterBySize">Size</label>
+                    </div>
+
+                    <div style="flex: 3; text-align: right; margin-top: 20px; padding: 20px">
+                        <label for="pizzaTypeOrSize">Select: </label>
+                        <select id="pizzaTypeOrSize" x-model="selectedTypeOrSize" @change="filterPizzas"
+                            class="color-button-two">
+                            <option value="">All</option>
+                            <template x-if="filterCriteria === 'type'">
+                                <template x-for="type in pizzaTypes">
+                                    <option :value="type" x-text="type"></option>
+                                </template>
+                            </template>
+                            <template x-if="filterCriteria === 'size'">
+                                <template x-for="size in pizzaSizes">
+                                    <option :value="size" x-text="size"></option>
+                                </template>
+                            </template>
+                        </select>
+                    </div>
+                </div>
+            </div> -->
+
+            <template x-for="pizza in filteredPizzas">
                 <div class="apizza" style="text-align: center;">
                     <!-- <span x-text="pizza.id"></span> -->
                     <strong><span x-text="pizza.flavour"></span></strong>
@@ -174,37 +214,37 @@
                     <strong><span x-text="pizza.size"></span></strong>
                     <img src="pizza icon.png" alt="pizza" width="30">
                     <span>R<span x-text="pizza.price"></span>
-                        
-                    <div class="pizza-buttons">
-                            <button @click="addPizzaToCart(pizza.id)" class="color-button">Add to cart</button>
-                            <button @click="manageFeaturedPizzas(pizza.id)" class="color-button">Feature pizza</button>
-                        </div>
+
+                        <div class="pizza-buttons">
+                        <button @click="addPizzaToCart(pizza.id)" class="color-button">Add to cart</button>
+                        <button @click="manageFeaturedPizzas(pizza.id)" class="color-button">Feature pizza</button>
                 </div>
-            </template>
+        </div>
+        </template>
+    </div>
+
+    <footer>
+        <div class="pizza contact_details" style="color:antiquewhite;">
+            <h2>Contact details</h2>
+            <div class="contact">
+                <div>Contact us at: (021)-541-1000</div>
+                <div>info@perfectpizza.co.za</div>
+            </div>
+
+            <div class="address">
+                <div>Pizza Plaza,</div>
+                <div>Dough Road,</div>
+                <div>Base Town.</div>
+            </div>
+
         </div>
 
-        <footer>
-            <div class="pizza contact_details" style="color:antiquewhite;">
-                <h2>Contact details</h2>
-                <div class="contact">
-                    <div>Contact us at: (021)-541-1000</div>
-                    <div>info@perfectpizza.co.za</div>
-                </div>
+        <div style="text-align: center;">
+            <p> &copy; 2024· Perfect Pizza· grac-e</p>
+        </div>
+    </footer>
 
-                <div class="address">
-                    <div>Pizza Plaza,</div>
-                    <div>Dough Road,</div>
-                    <div>Base Town.</div>
-                </div>
-
-            </div>
-
-            <div style="text-align: center;">
-                <p> &copy; 2024· Perfect Pizza· grac-e</p>
-            </div>
-        </footer>
-
-        <script src="./pizza.js"></script>
+    <script src="./pizza.js"></script>
 </body>
 
 </html>

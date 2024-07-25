@@ -56,6 +56,12 @@ body {
     gap: 10px;
 }
 
+.party {
+    background-color: #ff9770;
+    margin: 1em;
+    border-radius: 0.2em;
+}
+
 .pizza-details {
     display: flex;
     align-items: center;
@@ -108,6 +114,22 @@ body {
 }
 
 .color-button:active {
+    transform: scale(0.95);
+}
+
+.color-button-two {
+    cursor: pointer;
+    background-color: #f2e8cf;
+    border: 1px solid;
+    border-radius: 3px;
+    transition: transform 0.1s ease;
+}
+
+.color-button-two:hover {
+    background-color: #ccd5ae;
+}
+
+.color-button-two:active {
     transform: scale(0.95);
 }
 

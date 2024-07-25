@@ -17,6 +17,12 @@ document.addEventListener("alpine:init", () => {
             featuredPizzas: [],
             showOrderHistory: false,
             orderHistory: [],
+            filteredPizzas: [],
+            selectedType: '',
+            filterCriteria: 'type',
+            selectedTypeOrSize: '',
+            pizzaTypes: ['chicken', 'veggie', 'meaty'],
+            pizzaSizes: ['small', 'medium', 'large'],
 
 
 
@@ -24,6 +30,7 @@ document.addEventListener("alpine:init", () => {
                 if (this.username.length > 2) {
                     localStorage['username'] = this.username;
                     this.createCart();
+                    this.fetchFeaturedPizzas();
                     // this.showOrderHistory = false;
                     // this.loadHistory();
                 } else {
@@ -146,6 +153,7 @@ document.addEventListener("alpine:init", () => {
                 const storedUsername = localStorage['username'];
                 if (storedUsername) {
                     this.username = storedUsername;
+                    this.fetchFeaturedPizzas();
                     this.fetchOrderHistory();
                 }
 
@@ -155,6 +163,9 @@ document.addEventListener("alpine:init", () => {
                     .then(result => {
                         // console.log(result.data);
                         this.pizzas = result.data.pizzas
+                        this.filteredPizzas = this.pizzas; 
+                        console.log('Loaded pizzas:', this.pizzas);
+
                     });
                     // this.fetchOrderHistory();
 
@@ -170,6 +181,38 @@ document.addEventListener("alpine:init", () => {
                 // console.log(this.addPizzafetchFeaturedPizzas());
 
             },
+
+            // new
+            // filterPizzasByType() {
+            //     console.log('Selected type:', this.selectedType);  
+            //     if (this.selectedType) {
+            //         this.filteredPizzas = this.pizzas.filter(pizza => {
+            //             console.log('Pizza type:', pizza.type);  
+            //             return pizza.type === this.selectedType;
+            //         });
+            //     } else {
+            //         this.filteredPizzas = this.pizzas;
+            //     }
+            //     console.log('Filtered pizzas:', this.filteredPizzas);  
+            // },
+
+            filterPizzas() {
+                console.log('Selected type/size:', this.selectedTypeOrSize);  
+                if (this.selectedTypeOrSize) {
+                    this.filteredPizzas = this.pizzas.filter(pizza => {
+                        console.log('Pizza', pizza);  
+                        if (this.filterCriteria === 'type') {
+                            return pizza.type === this.selectedTypeOrSize;
+                        } else if (this.filterCriteria === 'size') {
+                            return pizza.size === this.selectedTypeOrSize;
+                        }
+                    });
+                } else {
+                    this.filteredPizzas = this.pizzas;
+                }
+                console.log('Filtered pizzas:', this.filteredPizzas);  
+            },
+            // new ends
             addPizzaToCart(pizzaId) {
                 this.addPizza(parseInt(pizzaId))
                     .then(() => {
