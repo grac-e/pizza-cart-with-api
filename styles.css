@@ -31,11 +31,13 @@ body {
 }
 
 .contact {
-    float: inline-start;
+    /* float: inline-start; */
+    float: left;
 }
 
 .address {
-    float: inline-end;
+    /* float: inline-end; */
+    float: right;
 }
 
 .heading {
@@ -57,23 +59,24 @@ body {
 }
 
 .party {
-    background-color: #ff9770;
+    background-color: #ff9b85;
     margin: 1em;
     border-radius: 0.2em;
 }
 
-.pizza-details {
+/* .pizza-details {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-}
+} */
 
 .pizza-buttons {
     display: flex;
     justify-content: center;
     gap: 10px;
     margin-top: 10px;
+    /* margin-right: 20px; */
 }
 
 .headings {
@@ -272,6 +275,11 @@ body {
 
 .change-message {
     color: #4f772d;
+}
+
+.dropdown {
+    padding: 1em;
+    margin: 1em;
 }
 
 /* @media only screen and (max-width: 600px) {
