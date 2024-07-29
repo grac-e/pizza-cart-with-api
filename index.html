@@ -48,14 +48,11 @@
                     style="float: right;">Order History</button> -->
             </div>
 
-            <!-- stuff -->
-
             <div class="dropdown" x-data="{ open: false }" @click="open = !open">
                 <button @click="fetchOrderHistory()" class="color-button" x-show="username && cartId">View Order History</button>
-                <!-- <button @click="open = !open">Orders & Account</button> -->
                 <div class="dropdown-content" x-show="open" @click.outside="open = false">
                     <div>
-                        <!-- <button @click="fetchOrderHistory()">Show Historical Orders</button> -->
+
                         <div>
                             <template x-if="historicalOrders.length > 0">
                                 <div>
@@ -88,8 +85,6 @@
             </div>
         </div>
 
-
-        <!-- stuff -->
 
     </div>
     <div class="cart-container">
